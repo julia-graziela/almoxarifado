@@ -28,6 +28,7 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Quantidade</th>
+                                <th>Descrição</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -36,9 +37,10 @@
                                 <tr>
                                     <td>{{ produto.nome }}</td>
                                     <td>{{ produto.quantidade }}</td>
+                                    <td>{{ produto.descricao }}</td>
                                     <td class="actions">
                                         <button class="editar-button" onclick="window.location.href='{% url 'estoque:editar_produto' produto.id %}'">Editar</button>
-                                        <button class="remover-button" onclick="window.location.href='{% url 'estoque:remover_produto' produto.id %}'">Excluir</button>
+                                        <button class="remover-button" href="{% url 'estoque:remover_produto' produto.id %}">Excluir</button>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -55,9 +57,19 @@
 {% block javascripts %}
     <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap5.min.js" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $('#datatablesSimple').DataTable();
+    <!-- Importe o jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Defina a função JavaScript para exibir o pop-up de confirmação -->
+<script>
+    $(document).ready(function() {
+        $(".remover-button").click(function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            if (confirm("Tem certeza de que deseja excluir este item?")) {
+                window.location.href = url;
+            }
         });
-    </script>
+    });
+</script>
 {% endblock javascripts %}
