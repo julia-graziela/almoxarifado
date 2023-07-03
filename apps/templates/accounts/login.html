@@ -20,7 +20,7 @@
                                 {% if msg %}
                                     <span class="text-danger"> {{ msg | safe }} </span>
                                 {% else %}
-                                    Add your credentials
+                                    Adicione suas credenciais
                                 {% endif %} 
                             </span>                            
                         </div>
@@ -31,24 +31,24 @@
                                 {% csrf_token %}  
 
                                 <div class="form-group">
-                                    <label class="small mb-1" for="username">Username</label>
+                                    <label class="small mb-1" for="username">Nome de usuário</label>
                                     {{ form.username }}
                                 </div>
                                 <div class="form-group">
-                                    <label class="small mb-1" for="inputPassword">Password</label>
+                                    <label class="small mb-1" for="inputPassword">Senha</label>
                                     {{ form.password }}
                                 </div>
                                 <br />
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" />
-                                        <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
+                                        <label class="custom-control-label" for="rememberPasswordCheck">Lembrar da minha senha</label>
                                     </div>
                                 </div>
                                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
-                                    <button type="submit" name="login" class="btn btn-primary">Login</button>
+                                    <button type="submit" name="login" class="btn btn-primary">Entar</button>
                                     <div class="small">
-                                        <a href="{% url 'register' %}">Register</a></div>
+                                        <a href="{% url 'register' %}">Registrar-se</a></div>
                                 </div>
                             </form>
                         </div>
@@ -64,6 +64,3 @@
     </main>
 
 {% endblock content %}
-
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}

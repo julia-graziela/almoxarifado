@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.home'  # Enable the inner home (home)
+    'apps.home',  # Enable the inner home (home)
+    'estoque'
 ]
 
 MIDDLEWARE = [
@@ -84,10 +85,10 @@ if os.environ.get('DB_ENGINE') and os.environ.get('DB_ENGINE') == "mysql":
     DATABASES = { 
       'default': {
         'ENGINE'  : 'django.db.backends.mysql', 
-        'NAME'    : os.getenv('DB_NAME'     , 'appseed_db'),
-        'USER'    : os.getenv('DB_USERNAME' , 'appseed_db_usr'),
-        'PASSWORD': os.getenv('DB_PASS'     , 'pass'),
-        'HOST'    : os.getenv('DB_HOST'     , 'localhost'),
+        'NAME'    : os.getenv('DB_NAME'     , 'almoxarifado'),
+        'USER'    : os.getenv('DB_USERNAME' , 'root'),
+        'PASSWORD': os.getenv('DB_PASS'     , '@lmoxarifado123'),
+        'HOST'    : os.getenv('DB_HOST'     , '127.0.0.1'),
         'PORT'    : os.getenv('DB_PORT'     , 3306),
         }, 
     }
