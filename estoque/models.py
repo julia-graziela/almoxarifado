@@ -30,13 +30,11 @@ class Emprestimo(models.Model):
         return f"{self.consumidor.nome} - {self.produto.nome}"
     
     def save(self, *args, **kwargs):
-        # Atualiza a quantidade do produto quando um empréstimo é salvo
         self.produto.quantidade -= self.quantidade
         self.produto.save()
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        # Atualiza a quantidade do produto quando um empréstimo é excluído
         self.produto.quantidade += self.quantidade
         self.produto.save()
         super().delete(*args, **kwargs)

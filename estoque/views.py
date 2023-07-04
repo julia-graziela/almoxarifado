@@ -3,9 +3,6 @@ from .models import Produto, Emprestimo
 from .forms import ProdutoForm, EmprestimoForm
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
-
-
-from django.shortcuts import render
 from django.http import HttpResponse
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
@@ -64,10 +61,8 @@ def emprestimos_registrados(request):
         emprestimo = get_object_or_404(Emprestimo, id=emprestimo_id)
 
         if quantidade_devolvida >= emprestimo.quantidade:
-            # Remove o registro do empréstimo se a quantidade devolvida for igual ou superior à quantidade original
             emprestimo.delete()
         else:
-            # Atualiza apenas a quantidade devolvida no registro do empréstimo
             emprestimo.quantidade -= quantidade_devolvida
             emprestimo.save()
 
@@ -79,9 +74,6 @@ def relatorio_emprestimos(request):
         ).values('mes_ano').annotate(total_emprestimos=Count('id')).order_by('mes_ano')
     
         return render(request, 'estoque/relatorio_emprestimos.html', {'emprestimos_por_mes_ano': emprestimos_por_mes_ano})
-
-
-
 
 def gerar_relatorio_pdf(request):
     response = HttpResponse(content_type='application/pdf')

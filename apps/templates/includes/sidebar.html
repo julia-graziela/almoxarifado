@@ -13,24 +13,24 @@
                 Itens
             </a>
             <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'estoque:emprestimos' %}">
-                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                <div class="sb-nav-link-icon"><i class="fas fa-angle-down"></i></div>
                 Emprestimo
             </a>  
             <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'estoque:emprestimos_registrados' %}">
-                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Devolução
             </a> 
             <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'estoque:relatorio_emprestimos' %}">
-                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                 Relatório
             </a> 
             <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'estoque:gerar_relatorio_pdf' %}">
-                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                 Gerar PDF dos itens
             </a>
             <div class="sb-sidenav-menu-heading">Usários</div>
             <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'consumidores:lista_consumidores' %}">
-                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                 Consumidores
             </a>           
         </div>

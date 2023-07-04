@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Adicionar Produto</title>
+    <title>Editar Produto</title>
 </head>
 <body>
-    <h1>Adicionar Produto</h1>
+    <h1>Editar Produto</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Adicionar</button>
+        <button type="submit">Editar</button>
     </form>
     <a href="{% url 'estoque:lista_produtos' %}">Voltar para a lista de produtos</a>
 </body>
