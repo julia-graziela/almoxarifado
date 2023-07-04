@@ -2,9 +2,9 @@
 
 {% block title %} Itens {% endblock %} 
 
-<!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/dataTables.bootstrap5.min.css" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">   
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/dataTables.bootstrap5.min.css" crossorigin="anonymous" />
 {% endblock stylesheets %}
 
 {% block content %}
@@ -40,7 +40,7 @@
                                     <td>{{ produto.descricao }}</td>
                                     <td class="actions">
                                         <button class="editar-button" onclick="window.location.href='{% url 'estoque:editar_produto' produto.id %}'">Editar</button>
-                                        <button class="remover-button" href="{% url 'estoque:remover_produto' produto.id %}">Excluir</button>
+                                        <button onclick="confirmarExclusao({{ produto.id }}, '{{ produto.nome }}')">Excluir</button>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -53,23 +53,23 @@
 
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
+<script>function confirmarExclusao(produtoId, produtoNome) {
+    Swal.fire({
+      title: 'Confirmação',
+      text: `Tem certeza que deseja excluir o produto "${produtoNome}"?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sim',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = `/seu/endpoint/de/exclusao/${produtoId}/`;
+      }
+    });
+  }
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap5.min.js" crossorigin="anonymous"></script>
-    <!-- Importe o jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Defina a função JavaScript para exibir o pop-up de confirmação -->
-<script>
-    $(document).ready(function() {
-        $(".remover-button").click(function(e) {
-            e.preventDefault();
-            var url = $(this).attr('href');
-            if (confirm("Tem certeza de que deseja excluir este item?")) {
-                window.location.href = url;
-            }
-        });
-    });
-</script>
 {% endblock javascripts %}

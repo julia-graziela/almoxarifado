@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Remover Consumidor</title>
+</head>
+<body>
+    <h1>Remover Consumidor</h1>
+    <p>Tem certeza que deseja remover o consumidor "{{ consumidor.nome }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmar</button>
+    </form>
+</body>
+</html>

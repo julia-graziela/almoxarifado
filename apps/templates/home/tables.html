@@ -41,7 +41,6 @@
                                     <td class="actions">
                                         <button class="editar-button" onclick="window.location.href='{% url 'estoque:editar_produto' produto.id %}'">Editar</button>
                                         <button onclick="confirmarExclusao({{ produto.id }}, '{{ produto.nome }}')">Excluir</button>
-
                                     </td>
                                 </tr>
                             {% endfor %}

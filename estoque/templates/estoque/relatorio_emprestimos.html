@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relatório de Empréstimos</title>
+</head>
+<body>
+    <h1>Relatório de Empréstimos</h1>
+
+    {% if emprestimos_por_mes_ano %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Mês/Ano</th>
+                    <th>Total de Empréstimos</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emprestimo in emprestimos_por_mes_ano %}
+                    <tr>
+                        <td>{{ emprestimo.mes_ano|date:"F Y" }}</td>
+                        <td>{{ emprestimo.total_emprestimos }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhum empréstimo registrado.</p>
+    {% endif %}
+</body>
+</html>

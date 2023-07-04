@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.home',
     'estoque',
+    'consumidores',
 ]
 
 MIDDLEWARE = [
@@ -84,10 +85,10 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'almoxarifado$almoxarifado',
-        'USER': 'almoxarifado',
-        'PASSWORD': '@lmoxarifado123',
-        'HOST': 'ip-172-17-3-124',
+        'NAME': 'almoxarifado.mysql.pythonanywhere-services.com',
+        'USER': 'root',
+        'PASSWORD': 'mysqldb9090',
+        'HOST': 'localhost',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         }

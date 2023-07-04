@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Empréstimos Registrados</title>
+</head>
+<body>
+    <h1>Empréstimos Registrados</h1>
+
+    {% if emprestimos %}
+        <ul>
+        {% for emprestimo in emprestimos %}
+            <li>{{ emprestimo.consumidor.nome }} - {{emprestimo.quantidade}} - {{ emprestimo.produto.nome }}(s)</li>
+            <form method="POST" action="{% url 'estoque:emprestimos_registrados' %}">
+                {% csrf_token %}
+                <input type="hidden" name="emprestimo_id" value="{{ emprestimo.id }}">
+                <label>Quantidade a devolver:</label>
+                <input type="number" name="quantidade_devolvida" min="1" max="{{ emprestimo.quantidade }}">
+                <button type="submit">Devolver</button>
+            </form>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum empréstimo registrado.</p>
+    {% endif %}
+</body>
+</html>
