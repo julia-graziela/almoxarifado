@@ -3,57 +3,89 @@
 {% block title %} Tables {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<style>
+    .card-body {
+        padding: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button[type="submit"] {
+        display: block;
+        margin: 0 auto;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+{% endblock stylesheets %}
 
 {% block content %}
-
-    <main>
-        <div class="container-fluid px-4">
-            <h1 class="mt-4">Tables</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                <li class="breadcrumb-item active">Tables</li>
-            </ol>
-            <div class="card mb-4">
-                <div class="card-body">
-                    DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                    <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                    .
-                </div>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Devolução</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Realize a devolução dos empréstimos
             </div>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    DataTable Example
-                </div>
-                <div class="card-body">
-                    {% if emprestimos %}
-                    <ul>
-                    {% for emprestimo in emprestimos %}
-                        <li>{{ emprestimo.consumidor.nome }} - {{emprestimo.quantidade}} - {{ emprestimo.produto.nome }}(s)</li>
-                        <form method="POST" action="{% url 'estoque:emprestimos_registrados' %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="emprestimo_id" value="{{ emprestimo.id }}">
-                            <label>Quantidade a devolver:</label>
-                            <input type="number" name="quantidade_devolvida" min="1" max="{{ emprestimo.quantidade }}">
-                            <button type="submit">Devolver</button>
-                        </form>
-                    {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>Nenhum empréstimo registrado.</p>
-                {% endif %}
-                </div>
+            <div class="card-body">
+                {% if emprestimos %}
+                <ul>
+                {% for emprestimo in emprestimos %}
+                    <li>{{ emprestimo.consumidor.nome }} - {{emprestimo.quantidade}} - {{ emprestimo.produto.nome }}(s)</li>
+                    <form method="POST" action="{% url 'estoque:emprestimos_registrados' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="emprestimo_id" value="{{ emprestimo.id }}">
+                        <label>Quantidade a devolver:</label>
+                        <input type="number" name="quantidade_devolvida" min="1" max="{{ emprestimo.quantidade }}">
+                        <button type="submit">Devolver</button>
+                    </form>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nenhum empréstimo registrado.</p>
+            {% endif %}
             </div>
         </div>
-    </main>
-
+    </div>
+</main>
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="/static/assets/js/datatables-simple-demo.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="/static/assets/js/datatables-simple-demo.js"></script>
 {% endblock javascripts %}

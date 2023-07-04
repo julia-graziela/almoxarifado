@@ -1,57 +1,117 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Tables {% endblock %} 
+{% block title %} Tables {% endblock title %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<style>
+    .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .card-header button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .actions button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .actions button:hover {
+        background-color: #45a049;
+    }
+
+    .empty-row td {
+        text-align: center;
+        color: #888;
+    }
+</style>
+{% endblock stylesheets %}
 
 {% block content %}
-
-    <main>
-        <div class="container-fluid px-4">
-            <h1 class="mt-4">Estoque</h1>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    Lista de produtos
-                </div>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Estoque</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Lista de Produtos
                 <button onclick="window.location.href='{% url 'estoque:adicionar_produto' %}'">Adicionar produto</button>
-                <div class="card-body">
-                    <table id="datatablesSimple">
-                        
-                           <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Quantidade</th>
-                                <th>Descrição</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for produto in produtos %}
-                                <tr>
-                                    <td>{{ produto.nome }}</td>
-                                    <td>{{ produto.quantidade }}</td>
-                                    <td>{{ produto.descricao }}</td>
-                                    <td class="actions">
-                                        <button onclick="window.location.href='{% url 'estoque:editar_produto' produto.id %}'">Editar</button>
-                                        <button onclick="window.location.href='{% url 'estoque:remover_produto' produto.id %}'">Remover</button>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                        </table>
-                </div>
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Quantidade</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produto in produtos %}
+                        <tr>
+                            <td>{{ produto.nome }}</td>
+                            <td>{{ produto.quantidade }}</td>
+                            <td>{{ produto.descricao }}</td>
+                            <td class="actions">
+                                <button onclick="window.location.href='{% url 'estoque:editar_produto' produto.id %}'">Editar</button>
+                                <button onclick="window.location.href='{% url 'estoque:remover_produto' produto.id %}'">Remover</button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr class="empty-row">
+                            <td colspan="4">Nenhum produto encontrado.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-    </main>
-
+    </div>
+</main>
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="/static/assets/js/datatables-simple-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="/static/assets/js/datatables-simple-demo.js"></script>
 
 {% endblock javascripts %}

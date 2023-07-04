@@ -1,63 +1,76 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Tables {% endblock %} 
+{% block title %} Tables {% endblock title %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<style>
+    .card-body {
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .empty-row td {
+        text-align: center;
+        color: #888;
+    }
+</style>
+{% endblock stylesheets %}
 
 {% block content %}
-
-    <main>
-        <div class="container-fluid px-4">
-            <h1 class="mt-4">Tables</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                <li class="breadcrumb-item active">Tables</li>
-            </ol>
-            <div class="card mb-4">
-                <div class="card-body">
-                    DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-                    <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
-                    .
-                </div>
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Relatório</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Relatório de quantidade de empréstimos por mês/ano
             </div>
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    DataTable Example
-                </div>
-                <div class="card-body">
-                    <table id="datatablesSimple">
-                        {% if emprestimos_por_mes_ano %}
-                            <thead>
-                                <tr>
-                                    <th>Mês/Ano</th>
-                                    <th>Total de Empréstimos</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for emprestimo in emprestimos_por_mes_ano %}
-                                    <tr>
-                                        <td>{{ emprestimo.mes_ano|date:"F Y" }}</td>
-                                        <td>{{ emprestimo.total_emprestimos }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    {% else %}
-                        <p>Nenhum empréstimo registrado.</p>
-                    {% endif %}
-                </div>
+            <div class="card-body">
+                {% if emprestimos_por_mes_ano %}
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Mês/Ano</th>
+                            <th>Total de Empréstimos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for emprestimo in emprestimos_por_mes_ano %}
+                        <tr>
+                            <td>{{ emprestimo.mes_ano|date:"F Y" }}</td>
+                            <td>{{ emprestimo.total_emprestimos }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>Nenhum empréstimo registrado.</p>
+                {% endif %}
             </div>
         </div>
-    </main>
-
+    </div>
+</main>
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="/static/assets/js/datatables-simple-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="/static/assets/js/datatables-simple-demo.js"></script>
 
 {% endblock javascripts %}
