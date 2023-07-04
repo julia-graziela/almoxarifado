@@ -1,26 +1,59 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Empréstimos Registrados</title>
-</head>
-<body>
-    <h1>Empréstimos Registrados</h1>
+{% extends "layouts/base.html" %}
 
-    {% if emprestimos %}
-        <ul>
-        {% for emprestimo in emprestimos %}
-            <li>{{ emprestimo.consumidor.nome }} - {{emprestimo.quantidade}} - {{ emprestimo.produto.nome }}(s)</li>
-            <form method="POST" action="{% url 'estoque:emprestimos_registrados' %}">
-                {% csrf_token %}
-                <input type="hidden" name="emprestimo_id" value="{{ emprestimo.id }}">
-                <label>Quantidade a devolver:</label>
-                <input type="number" name="quantidade_devolvida" min="1" max="{{ emprestimo.quantidade }}">
-                <button type="submit">Devolver</button>
-            </form>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>Nenhum empréstimo registrado.</p>
-    {% endif %}
-</body>
-</html>
+{% block title %} Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Tables</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                <li class="breadcrumb-item active">Tables</li>
+            </ol>
+            <div class="card mb-4">
+                <div class="card-body">
+                    DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
+                    <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
+                    .
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    DataTable Example
+                </div>
+                <div class="card-body">
+                    {% if emprestimos %}
+                    <ul>
+                    {% for emprestimo in emprestimos %}
+                        <li>{{ emprestimo.consumidor.nome }} - {{emprestimo.quantidade}} - {{ emprestimo.produto.nome }}(s)</li>
+                        <form method="POST" action="{% url 'estoque:emprestimos_registrados' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="emprestimo_id" value="{{ emprestimo.id }}">
+                            <label>Quantidade a devolver:</label>
+                            <input type="number" name="quantidade_devolvida" min="1" max="{{ emprestimo.quantidade }}">
+                            <button type="submit">Devolver</button>
+                        </form>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Nenhum empréstimo registrado.</p>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="/static/assets/js/datatables-simple-demo.js"></script>
+
+{% endblock javascripts %}

@@ -14,8 +14,28 @@
             </a>
             <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="tables.html">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Tables
+            </a>
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'estoque:lista_produtos' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Itens
             </a>
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'consumidores:lista_consumidores' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Consumidores
+            </a>
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'estoque:emprestimos' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Emprestimo
+            </a>  
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'estoque:emprestimos_registrados' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Devolução
+            </a> 
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'estoque:relatorio_emprestimos' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Relatório
+            </a>              
         </div>
     </div>
     <div class="sb-sidenav-footer">
