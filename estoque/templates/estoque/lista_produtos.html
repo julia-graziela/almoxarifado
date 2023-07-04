@@ -1,30 +1,25 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Itens {% endblock %} 
+{% block title %} Tables {% endblock %} 
 
-{% block stylesheets %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">   
-<link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/dataTables.bootstrap5.min.css" crossorigin="anonymous" />
-{% endblock stylesheets %}
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
 
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Itens</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                <li class="breadcrumb-item active">Itens</li>
-            </ol>
+            <h1 class="mt-4">Estoque</h1>
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
-                    Exemplo
+                    Lista de produtos
                 </div>
+                <button onclick="window.location.href='{% url 'estoque:adicionar_produto' %}'">Adicionar produto</button>
                 <div class="card-body">
-                    <table id="datatablesSimple" class="table table-striped">
-                        <button class="adicionar-button" onclick="window.location.href='{% url 'estoque:adicionar_produto' %}'">Adicionar Produto</button>
-                        <thead>
+                    <table id="datatablesSimple">
+                        
+                           <thead>
                             <tr>
                                 <th>Nome</th>
                                 <th>Quantidade</th>
@@ -39,13 +34,13 @@
                                     <td>{{ produto.quantidade }}</td>
                                     <td>{{ produto.descricao }}</td>
                                     <td class="actions">
-                                        <button class="editar-button" onclick="window.location.href='{% url 'estoque:editar_produto' produto.id %}'">Editar</button>
-                                        <button onclick="confirmarExclusao({{ produto.id }}, '{{ produto.nome }}')">Excluir</button>
+                                        <button onclick="window.location.href='{% url 'estoque:editar_produto' produto.id %}'">Editar</button>
+                                        <button onclick="window.location.href='{% url 'estoque:remover_produto' produto.id %}'">Remover</button>
                                     </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
-                    </table>
+                        </table>
                 </div>
             </div>
         </div>
@@ -53,23 +48,10 @@
 
 {% endblock content %}
 
+<!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-<script>function confirmarExclusao(produtoId, produtoNome) {
-    Swal.fire({
-      title: 'Confirmação',
-      text: `Tem certeza que deseja excluir o produto "${produtoNome}"?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sim',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = `/seu/endpoint/de/exclusao/${produtoId}/`;
-      }
-    });
-  }
-  </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap5.min.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="/static/assets/js/datatables-simple-demo.js"></script>
+
 {% endblock javascripts %}

@@ -85,9 +85,9 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'almoxarifado.mysql.pythonanywhere-services.com',
+        'NAME': 'almoxarifado',
         'USER': 'root',
-        'PASSWORD': 'mysqldb9090',
+        'PASSWORD': '@lmoxarifado123',
         'HOST': 'localhost',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
