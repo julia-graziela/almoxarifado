@@ -1,0 +1,11 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Gerar Relatório em PDF{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Gerar Relatório em PDF</h1>
+        <p>Clique no botão abaixo para gerar o relatório em PDF:</p>
+        <a class="btn" href="{% url 'gerar_relatorio_itens' %}" target="_blank">Gerar Relatório</a>
+    </div>
+{% endblock %}

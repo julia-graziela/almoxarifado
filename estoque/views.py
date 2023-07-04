@@ -4,6 +4,15 @@ from .forms import ProdutoForm, EmprestimoForm
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
 
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+
+
 def lista_produtos(request):
     produtos = Produto.objects.all()
     return render(request, 'estoque/lista_produtos.html', {'produtos': produtos})
@@ -70,3 +79,44 @@ def relatorio_emprestimos(request):
         ).values('mes_ano').annotate(total_emprestimos=Count('id')).order_by('mes_ano')
     
         return render(request, 'estoque/relatorio_emprestimos.html', {'emprestimos_por_mes_ano': emprestimos_por_mes_ano})
+
+
+
+
+def gerar_relatorio_pdf(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="relatorio.pdf"'
+
+    # Query para obter os dados da tabela (Produtos)
+    produtos = Produto.objects.all()
+
+    # Configurações do documento PDF
+    doc = SimpleDocTemplate(response, pagesize=letter)
+    elements = []
+    styles = getSampleStyleSheet()
+
+    # Cabeçalho da tabela
+    data = [['Nome', 'Quantidade', 'Descrição', 'Data de criação' ]]
+
+    # Adicionar os dados dos produtos à tabela
+    for produto in produtos:
+        data.append([produto.nome, produto.quantidade, produto.descricao, produto.data_criacao])
+
+    # Criar a tabela com os dados
+    table = Table(data, colWidths=150, rowHeights=30)
+    table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+    ]))
+
+    # Adicionar a tabela ao documento
+    elements.append(table)
+
+    # Construir o PDF
+    doc.build(elements)
+    return response

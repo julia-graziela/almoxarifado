@@ -24,6 +24,10 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Relatório
             </a> 
+            <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'estoque:gerar_relatorio_pdf' %}">
+                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                Gerar PDF dos itens
+            </a>
             <div class="sb-sidenav-menu-heading">Usários</div>
             <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="{% url 'consumidores:lista_consumidores' %}">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>

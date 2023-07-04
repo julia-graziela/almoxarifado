@@ -12,4 +12,5 @@ urlpatterns = [
     path('emprestimos/', views.emprestimos, name='emprestimos'),
     path('emprestimos/registrados/', views.emprestimos_registrados, name='emprestimos_registrados'),
     path('relatorio_emprestimos/', views.relatorio_emprestimos, name='relatorio_emprestimos'),
+    path('gerar_relatorio_pdf/', views.gerar_relatorio_pdf, name='gerar_relatorio_pdf'),
 ]
